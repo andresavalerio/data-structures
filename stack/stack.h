@@ -2,7 +2,7 @@
 #define STACK_H_
 
 struct item{
-  int val;
+  char val;
 };
 
 struct node{
@@ -27,5 +27,7 @@ void pop(struct stack* s);
 void push(struct stack* s, struct node* n);
 
 int getSize(struct stack* s);
+
+void display(struct stack* s);
 
 #endif

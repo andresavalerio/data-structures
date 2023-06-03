@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "stack.h"
 
 struct node* createNode(struct item* i){
@@ -27,13 +28,13 @@ struct item* getTop(struct stack* s){
 
 void pop(struct stack* s){
   if (s->top != NULL){
+    if(s->top->prev != NULL) s->top->prev->next = NULL;
     struct node* aux = s->top;
     s->top = s->top->prev;
     s->size--;
 
     free(aux);
 
-    // s->top->next = NULL;
   }
 
 }
@@ -50,4 +51,22 @@ void push(struct stack* s, struct node* n){
 
 int getSize(struct stack* s){
   return s->size;
+}
+
+void display(struct stack* s){
+  if (s->top == NULL){
+    perror("Pilha vazia");
+    return;
+  }
+  struct node* aux = s->top;
+
+  printf("START DISPLAY\n");
+
+  while(aux != NULL){
+    printf("%p<-[%p]->%p\n", aux->prev, aux, aux->next);
+
+    aux = aux->prev;
+  }
+
+  printf("END DISPLAY\n");
 }

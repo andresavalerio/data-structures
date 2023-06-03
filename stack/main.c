@@ -2,52 +2,47 @@
 #include <stdlib.h>
 #include "stack.h"
 
+/*
+input: string com parenteses e outros caracteres
+()(())())()
+output: dizer se ta balanceado ou não
+ */
+
 int main(){
-  struct item item1, item2;
-  struct item* topItem1, *topItem2, *topItem3;
-  struct node* node1, *node2;
+  struct item item1;
+  struct node* node1;
   struct stack* stack1;
+  int stackSize;
+  char input[10];
 
-  item1.val = 1;
-  item2.val = 2;
-
-  node1 = createNode(&item1);
-  node2 = createNode(&item2);
-
-  //printf("%d\n", node1->item->val);
+  scanf("%s", input);
 
   stack1 = createStack();
+  display(stack1);
 
-  push(stack1, node1);
+  for(int i = 0; input[i] != '\0';i++){
+    if(input[i] == '('){
+      item1.val = '(';
+      node1 = createNode(&item1);
+      push(stack1, node1);
+    }
+    else if(input[i] == ')'){
+      if(getSize(stack1) == 0){
+        perror("String desbalanceada");
+        break;
+      }
+      pop(stack1);
+    }
+  }
 
-  printf("TOP: %d\n", stack1->top->item->val);
-  printf("TOP: %p<-[%p]->%p\n", stack1->top->prev, stack1->top, stack1->top->next);
-
-  push(stack1, node2);
-
-  printf("NEW TOP: %d\n", stack1->top->item->val);
-  printf("NEW TOP: %p<-[%p]->%p\n", stack1->top->prev, stack1->top, stack1->top->next);
-
-
-  topItem1 = getTop(stack1);
-  printf("Top Item 1: %d\n", topItem1->val);
-
-  pop(stack1);
-  printf("POP 1: %p<-[%p]->%p\n", stack1->top->prev, stack1->top, stack1->top->next);
-  topItem2 = getTop(stack1);
-  printf("Top Item 2: %d\n", topItem2->val);
-
-
-  pop(stack1);
-  printf("POP 2: %p<-[%p]->%p\n", stack1->top->prev, stack1->top, stack1->top->next);
-  printf("Oi!\n");
-  topItem3 = getTop(stack1);
-  printf("Outro oi!\n");
-  printf("Top Item 3: %d\n", topItem3->val);
-
-  free(node1);
-  free(node2);
-  free(stack1);
+  stackSize = getSize(stack1);
+  if (stackSize != 0){
+    perror("String desbalanceada");
+  }
+  else {
+    printf("String balanceada\n");
+  }
+  printf("Stack size: %d\n", stackSize);
 
   return 0;
 }
