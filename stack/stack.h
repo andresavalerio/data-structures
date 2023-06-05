@@ -30,4 +30,6 @@ int getSize(struct stack* s);
 
 void display(struct stack* s);
 
+void destroyStack(struct stack* s);
+
 #endif

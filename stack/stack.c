@@ -70,3 +70,10 @@ void display(struct stack* s){
 
   printf("END DISPLAY\n");
 }
+
+void destroyStack(struct stack* s){
+  while (s->top != NULL){
+    pop(s);
+  }
+  free(s);
+}

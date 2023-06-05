@@ -1,48 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "stack.h"
 
-/*
-input: string com parenteses e outros caracteres
-()(())())()
-output: dizer se ta balanceado ou não
- */
-
 int main(){
-  struct item item1;
-  struct node* node1;
-  struct stack* stack1;
+  struct item item;
+  struct node* node;
+  struct stack* stack;
+  bool flag = true;
   int stackSize;
-  char input[10];
+  char input[50];
 
   scanf("%s", input);
 
-  stack1 = createStack();
-  display(stack1);
+  stack = createStack();
+  printf("======== INICIAL STACK ========\n");
+  display(stack);
+  printf("======== INICIAL STACK ========\n");
 
   for(int i = 0; input[i] != '\0';i++){
     if(input[i] == '('){
-      item1.val = '(';
-      node1 = createNode(&item1);
-      push(stack1, node1);
+      item.val = '(';
+      node = createNode(&item);
+      push(stack, node);
     }
     else if(input[i] == ')'){
-      if(getSize(stack1) == 0){
-        perror("String desbalanceada");
+      if(getSize(stack) == 0){
+        flag = false;
         break;
       }
-      pop(stack1);
+      pop(stack);
     }
   }
 
-  stackSize = getSize(stack1);
-  if (stackSize != 0){
+  printf("======== FINAL STACK ========\n");
+  display(stack);
+  printf("======== FINAL STACK ========\n");
+
+  stackSize = getSize(stack);
+  if (stackSize != 0 || flag == false){
     perror("String desbalanceada");
   }
   else {
     printf("String balanceada\n");
   }
   printf("Stack size: %d\n", stackSize);
+
+  destroyStack(stack);
 
   return 0;
 }
