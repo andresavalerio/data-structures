@@ -1,0 +1,3 @@
+* Data Structures
+
+The repository for Data Structures, maintained by Andresa Valério, built with :heart: and C language.
